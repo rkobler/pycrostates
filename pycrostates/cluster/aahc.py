@@ -107,7 +107,6 @@ class AAHCluster(_BaseCluster):
 
     @copy_doc(_BaseCluster.__eq__)
     def __eq__(self, other: Any) -> bool:
-        """Equality == method."""
         if isinstance(other, AAHCluster):
             if not super().__eq__(other):
                 return False
@@ -131,7 +130,6 @@ class AAHCluster(_BaseCluster):
 
     @copy_doc(_BaseCluster.__ne__)
     def __ne__(self, other: Any) -> bool:
-        """Different != method."""
         return not self.__eq__(other)
 
     @copy_doc(_BaseCluster._check_fit)
@@ -148,7 +146,6 @@ class AAHCluster(_BaseCluster):
         tmin: Optional[Union[int, float]] = None,
         tmax: Optional[Union[int, float]] = None,
         reject_by_annotation: bool = True,
-        n_jobs: int = 1,
         *,
         verbose: Optional[str] = None,
     ) -> None:
@@ -158,7 +155,6 @@ class AAHCluster(_BaseCluster):
             tmin=tmin,
             tmax=tmax,
             reject_by_annotation=reject_by_annotation,
-            n_jobs=n_jobs,
             verbose=verbose,
         )
 
