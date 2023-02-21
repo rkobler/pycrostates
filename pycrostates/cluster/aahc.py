@@ -236,6 +236,9 @@ class AAHCluster(_BaseCluster):
 
         GEV = np.sum(data * cluster, axis=0)
 
+        if ignore_polarity:
+            GEV = np.abs(GEV)
+
         assignment = np.arange(n_frame)
 
         n_steps = n_frame - n_clusters
@@ -265,7 +268,7 @@ class AAHCluster(_BaseCluster):
                 members = assignment == c
                 if ignore_polarity:
 
-                    old_weight = len(new_assignment == c) / members.sum()
+                    old_weight = np.sum(new_assignment == c) / members.sum()
 
                     sgn = np.sign(old_cluster @ cluster[:, c])
 
@@ -308,7 +311,7 @@ class AAHCluster(_BaseCluster):
                     cluster[:, c] /= np.linalg.norm(
                         cluster[:, c], axis=0, keepdims=True
                     )
-                new_fit = cluster[:, slice(c, c + 1)] * data[:, members]
+                new_fit = cluster[:, slice(c, c + 1)].T @ data[:, members]
                 if ignore_polarity:
                     new_fit = np.abs(new_fit)
                 GEV[c] = np.sum(new_fit)
